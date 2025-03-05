@@ -51,14 +51,15 @@ export const Sidebar = () => {
   return (
     <div>
       {/* Mobile Menu Button */}
-      <IconButton
-        radius="full"
-        className="fixed bottom-4 p-2 right-4 z-50 md:hidden"
-        variant="ghost"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <HamburgerMenuIcon />
-      </IconButton>
+      <div className="fixed bottom-4 p-2 right-4 z-50 md:hidden">
+        <IconButton
+          radius="full"
+          variant="ghost"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <HamburgerMenuIcon />
+        </IconButton>
+      </div>
 
       {/* Overlay for mobile */}
       <AnimatePresence>

@@ -204,70 +204,72 @@ function AccountPageComponent() {
                     exit="exit"
                   >
                     <Card
-                      className={`flex items-start justify-between ${
+                      className={`${
                         account.status === "inactive" ? "opacity-[0.65]" : ""
                       }`}
                       size="2"
                     >
-                      <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-2">
-                          <AccountTypeIcon type={account.account_type} />
-                          <Text size="3" weight="bold">
-                            {account.name}
-                          </Text>
+                      <div className="flex items-start justify-between">
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-2">
+                            <AccountTypeIcon type={account.account_type} />
+                            <Text size="3" weight="bold">
+                              {account.name}
+                            </Text>
+                          </div>
+                          <div className="flex">
+                            <Text
+                              size="2"
+                              weight="medium"
+                              color="gray"
+                              className={`capitalize ${
+                                account.status === "active"
+                                  ? "text-grass"
+                                  : "text-red"
+                              }`}
+                            >
+                              {account.status}
+                            </Text>
+                          </div>
+                          <CurrencyText
+                            value={account.balance}
+                            currency={account.currency}
+                            as="div"
+                            color="grass"
+                            size="6"
+                            weight="bold"
+                            className="mt-2"
+                          />
                         </div>
-                        <div className="flex">
-                          <Text
-                            size="2"
-                            weight="medium"
-                            color="gray"
-                            className={`capitalize ${
-                              account.status === "active"
-                                ? "text-grass"
-                                : "text-red"
-                            }`}
+                        <div className="px-1">
+                          <AccountDropdownActions
+                            account={account}
+                            onEditClick={() => {
+                              setActiveAccount(account);
+                              setOpen(true);
+                            }}
+                            onDeleteClick={() => {
+                              deleteMutation.mutate({
+                                params: {
+                                  id: account.id,
+                                },
+                              });
+                            }}
+                            onStatusClick={(status) => {
+                              updateStatusMutation.mutate({
+                                ...account,
+                                status,
+                                params: {
+                                  id: account.id,
+                                },
+                              });
+                            }}
                           >
-                            {account.status}
-                          </Text>
+                            <Button variant="ghost" className="py-2">
+                              <DotsVerticalIcon />
+                            </Button>
+                          </AccountDropdownActions>
                         </div>
-                        <CurrencyText
-                          value={account.balance}
-                          currency={account.currency}
-                          as="div"
-                          color="grass"
-                          size="6"
-                          weight="bold"
-                          className="mt-2"
-                        />
-                      </div>
-                      <div className="px-1">
-                        <AccountDropdownActions
-                          account={account}
-                          onEditClick={() => {
-                            setActiveAccount(account);
-                            setOpen(true);
-                          }}
-                          onDeleteClick={() => {
-                            deleteMutation.mutate({
-                              params: {
-                                id: account.id,
-                              },
-                            });
-                          }}
-                          onStatusClick={(status) => {
-                            updateStatusMutation.mutate({
-                              ...account,
-                              status,
-                              params: {
-                                id: account.id,
-                              },
-                            });
-                          }}
-                        >
-                          <Button variant="ghost" className="py-2">
-                            <DotsVerticalIcon />
-                          </Button>
-                        </AccountDropdownActions>
                       </div>
                     </Card>
                   </motion.div>
