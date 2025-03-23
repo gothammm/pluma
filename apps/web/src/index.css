@@ -2,6 +2,8 @@
 
 @config "../tailwind.config.js";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /**
   * Fixes the overlay flicker when the dialog is closed
   * https://github.com/radix-ui/primitives/issues/3286#issuecomment-2561493444
@@ -27,4 +29,41 @@
     opacity: 0;
     animation: rt-dialog-content-hide 100ms cubic-bezier(0.16, 1, 0.3, 1);
   }
+}
+
+
+@theme {
+  --color-accent-1: var(--bronze-1);
+  --color-accent-2: var(--bronze-2);
+  --color-accent-3: var(--bronze-3);
+  --color-accent-4: var(--bronze-4);
+  --color-accent-5: var(--bronze-5);
+  --color-accent-6: var(--bronze-6);
+  --color-accent-7: var(--bronze-7);
+  --color-accent-8: var(--bronze-8);
+  --color-accent-9: var(--bronze-9);
+  --color-accent-10: var(--bronze-10);
+  --color-accent-11: var(--bronze-11);
+  --color-accent-12: var(--bronze-12);
+  --color-accent-a1: var(--bronze-a1);
+  --color-accent-a2: var(--bronze-a2);
+  --color-accent-a3: var(--bronze-a3);
+  --color-accent-a4: var(--bronze-a4);
+  --color-accent-a5: var(--bronze-a5);
+  --color-accent-a6: var(--bronze-a6);
+  --color-accent-a7: var(--bronze-a7);
+  --color-accent-a8: var(--bronze-a8);
+  --color-accent-a9: var(--bronze-a9);
+  --color-accent-a10: var(--bronze-a10);
+  --color-accent-a11: var(--bronze-a11);
+  --color-accent-a12: var(--bronze-a12);
+  --color-accent-contrast: var(--bronze-contrast);
+  --color-accent-surface: var(--bronze-surface);
+  --color-accent-indicator: var(--bronze-indicator);
+  --color-accent-track: var(--bronze-track);
+  --color-gray-a5: var(--gray-a5);
+}
+
+:where([data-sonner-toast][data-styled="true"]) {
+  @apply rounded-lg bg-panel-solid;
 }

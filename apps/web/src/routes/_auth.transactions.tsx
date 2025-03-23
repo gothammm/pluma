@@ -1,11 +1,9 @@
-import { MiniTransactionList } from "@/components/mini-transaction-list";
+import { TransactionsList } from "@/components/transactions/transactions-list";
 import mockTransactions, { Transaction } from "@/mocks/transactions";
-import { CaretRight } from "@phosphor-icons/react";
-import { Button, Card, Text } from "@radix-ui/themes";
+import { MagnifyingGlass, Plus, Sliders } from "@phosphor-icons/react";
+import { Button, Text, TextField } from "@radix-ui/themes";
 import { createFileRoute } from "@tanstack/react-router";
 import { DateTime } from "luxon";
-import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
 
 export const Route = createFileRoute("/_auth/transactions")({
   component: RouteComponent,
@@ -31,47 +29,29 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-1 flex-col p-5 md:p-10 gap-10">
-      <div className="flex">
+      <div className="flex justify-between">
         <Text size="6" className="px-1" weight="bold">
           Transactions
         </Text>
+        <Button variant="classic">
+          <Plus /> Add Transaction
+        </Button>
       </div>
-      <div className="flex flex-col gap-5">
-        {dateKeys.map((date) => {
-          const [isExpanded, setIsExpanded] = useState(false);
-          return (
-            <Card key={date} className="flex flex-col gap-4">
-              <div
-                className="flex items-center gap-5 p-1 cursor-pointer"
-                onClick={() => setIsExpanded(!isExpanded)}
-              >
-                <motion.div
-                  className="flex items-center gap-2"
-                  animate={{ rotate: isExpanded ? 90 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <CaretRight size={"20"} />
-                </motion.div>
-                <Text size="3" weight="medium">
-                  {DateTime.fromISO(date).toFormat("dd LLL yyyy")}
-                </Text>
-              </div>
-              <AnimatePresence>
-                {isExpanded && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    style={{ overflow: "hidden" }}
-                  >
-                    <MiniTransactionList />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Card>
-          );
-        })}
+      <div className="flex flex-col flex-1 gap-5">
+        <div className="flex gap-4">
+          <TextField.Root
+            placeholder="Search transactions.."
+            className="flex-1"
+          >
+            <TextField.Slot>
+              <MagnifyingGlass height="16" width="16" />
+            </TextField.Slot>
+          </TextField.Root>
+          <Button variant="outline">
+            <Sliders /> Filters
+          </Button>
+        </div>
+        <TransactionsList />
       </div>
     </div>
   );

@@ -51,3 +51,4 @@ uvloop==0.21.0
 virtualenv==20.28.1
 watchfiles==1.0.3
 websockets==14.1
+loguru==0.7.3

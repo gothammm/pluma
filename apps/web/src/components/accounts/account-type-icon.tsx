@@ -1,9 +1,5 @@
 import { AccountType } from "@/types/account";
-import {
-  CardStackIcon,
-  DrawingPinIcon,
-  BackpackIcon,
-} from "@radix-ui/react-icons";
+import { Backpack, CreditCard, PiggyBank } from "@phosphor-icons/react";
 
 interface AccountTypeIconProps {
   type: AccountType;
@@ -12,9 +8,9 @@ interface AccountTypeIconProps {
 
 export const AccountTypeIcon = ({ type, className }: AccountTypeIconProps) => {
   const icons = {
-    checking: <BackpackIcon className={className} />,
-    savings: <DrawingPinIcon className={className} />,
-    credit: <CardStackIcon className={className} />,
+    checking: <Backpack className={className} />,
+    savings: <PiggyBank className={className} />,
+    credit: <CreditCard className={className} />,
   };
 
   return icons[type] || null;

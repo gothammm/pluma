@@ -1,18 +1,4 @@
-import { CubeIcon, DotsVerticalIcon, PlusIcon } from "@radix-ui/react-icons";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Em,
-  Flex,
-  Grid,
-  IconButton,
-  Skeleton,
-  Strong,
-  Text,
-  useThemeContext,
-} from "@radix-ui/themes";
+import { Button, Card, Grid, Skeleton, Text } from "@radix-ui/themes";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { fetchData, useApiMutation } from "@/api";
@@ -26,6 +12,7 @@ import { AccountDropdownActions } from "@/components/accounts/account-dropdown-a
 import { CurrencyText } from "@/components/currency-text";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { DotsThreeVertical, Plus } from "@phosphor-icons/react";
 
 const accountsQueryOptions = queryOptions<ListResponse<Account>>({
   queryKey: ["accounts"],
@@ -109,7 +96,7 @@ function AccountPageComponent() {
           }}
         >
           <Button variant="classic">
-            <PlusIcon /> Account
+            <Plus /> Account
           </Button>
         </AccountForm>
       </div>
@@ -135,11 +122,8 @@ function AccountPageComponent() {
         </Grid>
       ) : accountsResult.results.length <= 0 ? (
         <>
-          <Card
-            variant="ghost"
-            className="flex flex-1 flex-col justify-center items-center gap-5"
-          >
-            <EmptyAccountState className="h-40 w-40 fill-[var(--accent-11)]" />
+          <Card className="!flex flex-1 flex-col justify-center items-center gap-5">
+            <EmptyAccountState className="h-40 w-40 fill-accent-track" />
             <div className="flex flex-col items-center gap-5">
               <div className="flex flex-col items-center gap-2">
                 <Text as="div" size="6" weight="medium">
@@ -154,7 +138,7 @@ function AccountPageComponent() {
               </div>
               <AccountForm onOpen={() => setOpen(true)} onSuccess={onSuccess}>
                 <Button variant="classic">
-                  <PlusIcon /> Add Account
+                  <Plus /> Add Account
                 </Button>
               </AccountForm>
             </div>
@@ -204,72 +188,75 @@ function AccountPageComponent() {
                     exit="exit"
                   >
                     <Card
-                      className={`${
+                      className={`items-start justify-between ${
                         account.status === "inactive" ? "opacity-[0.65]" : ""
                       }`}
+                      style={{
+                        display: "flex",
+                      }}
                       size="2"
                     >
-                      <div className="flex items-start justify-between">
-                        <div className="flex flex-col gap-2">
-                          <div className="flex items-center gap-2">
-                            <AccountTypeIcon type={account.account_type} />
-                            <Text size="3" weight="bold">
-                              {account.name}
-                            </Text>
-                          </div>
-                          <div className="flex">
-                            <Text
-                              size="2"
-                              weight="medium"
-                              color="gray"
-                              className={`capitalize ${
-                                account.status === "active"
-                                  ? "text-grass"
-                                  : "text-red"
-                              }`}
-                            >
-                              {account.status}
-                            </Text>
-                          </div>
-                          <CurrencyText
-                            value={account.balance}
-                            currency={account.currency}
-                            as="div"
-                            color="grass"
-                            size="6"
-                            weight="bold"
-                            className="mt-2"
+                      <div className="flex flex-col gap-2">
+                        <div className="flex items-center gap-2">
+                          <AccountTypeIcon
+                            type={account.account_type}
                           />
+                          <Text size="5" weight="bold">
+                            {account.name}
+                          </Text>
                         </div>
-                        <div className="px-1">
-                          <AccountDropdownActions
-                            account={account}
-                            onEditClick={() => {
-                              setActiveAccount(account);
-                              setOpen(true);
-                            }}
-                            onDeleteClick={() => {
-                              deleteMutation.mutate({
-                                params: {
-                                  id: account.id,
-                                },
-                              });
-                            }}
-                            onStatusClick={(status) => {
-                              updateStatusMutation.mutate({
-                                ...account,
-                                status,
-                                params: {
-                                  id: account.id,
-                                },
-                              });
-                            }}
+                        <div className="flex">
+                          <Text
+                            size="2"
+                            weight="medium"
+                            color="gray"
+                            className={`capitalize ${
+                              account.status === "active"
+                                ? "text-grass"
+                                : "text-red"
+                            }`}
                           >
-                            <Button variant="ghost" className="py-2">
-                              <DotsVerticalIcon />
-                            </Button>
-                          </AccountDropdownActions>
+                            {account.status}
+                          </Text>
                         </div>
+                        <CurrencyText
+                          value={account.balance}
+                          currency={account.currency}
+                          as="div"
+                          color="grass"
+                          size="6"
+                          weight="bold"
+                          className="mt-2"
+                        />
+                      </div>
+                      <div className="px-1">
+                        <AccountDropdownActions
+                          account={account}
+                          onEditClick={() => {
+                            setActiveAccount(account);
+                            setOpen(true);
+                          }}
+                          onDeleteClick={() => {
+                            deleteMutation.mutate({
+                              params: {
+                                id: account.id,
+                              },
+                            });
+                          }}
+                          onStatusClick={(status) => {
+                            updateStatusMutation.mutate({
+                              ...account,
+                              status,
+                              params: {
+                                id: account.id,
+                              },
+                            });
+                          }}
+                        >
+                          <Button variant="ghost" className="py-2">
+                            <DotsThreeVertical />
+                          </Button>
+                        </AccountDropdownActions>
                       </div>
                     </Card>
                   </motion.div>

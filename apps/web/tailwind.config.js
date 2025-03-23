@@ -3,12 +3,6 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors: {
-        "gray-a5": "var(--gray-a5)",
-        "accent-3": "var(--accent-3)",
-        "accent-4": "var(--accent-4)",
-        "accent-5": "var(--accent-5)",
-      },
       boxShadow: {
         inset: "var(--shadow-1)",
         classic: "var(--shadow-2)",

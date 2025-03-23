@@ -1,7 +1,7 @@
-import { PlusIcon } from "@radix-ui/react-icons";
 import { Button, Card, Text } from "@radix-ui/themes";
 import { createFileRoute } from "@tanstack/react-router";
 import { MiniTransactionList } from "../components/mini-transaction-list";
+import { Plus } from "@phosphor-icons/react";
 
 export const Route = createFileRoute("/_auth/dashboard")({
   component: RouteComponent,
@@ -15,7 +15,7 @@ function RouteComponent() {
           Dashboard
         </Text>
         <Button variant="classic">
-          <PlusIcon /> New Account
+          <Plus /> New Account
         </Button>
       </div>
       <div className="flex w-full gap-4">

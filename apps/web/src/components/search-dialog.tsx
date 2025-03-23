@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { Dialog, Text, TextField } from "@radix-ui/themes";
 import React from "react";
 
@@ -13,7 +13,7 @@ export const SearchDialog = () => {
             color: "var(--gray-11)",
           }}
         >
-          <MagnifyingGlassIcon height="16" width="16" />
+          <MagnifyingGlass height="16" width="16" />
           <Text
             color="gray"
             size={"2"}
@@ -32,7 +32,7 @@ export const SearchDialog = () => {
           className="w-full"
         >
           <TextField.Slot>
-            <MagnifyingGlassIcon height="16" width="16" />
+            <MagnifyingGlass height="16" width="16" />
           </TextField.Slot>
         </TextField.Root>
       </Dialog.Content>

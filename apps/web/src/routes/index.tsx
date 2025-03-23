@@ -1,4 +1,4 @@
-import { BookmarkIcon } from "@radix-ui/react-icons";
+import { Bookmark } from "@phosphor-icons/react";
 import { Button } from "@radix-ui/themes";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -11,7 +11,7 @@ function DashboardComponent() {
     <div className="p-2">
       <h3>Welcome to Dashboard!</h3>
       <Button variant="classic">
-        <BookmarkIcon /> Bookmark
+        <Bookmark /> Bookmark
       </Button>
     </div>
   );

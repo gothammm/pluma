@@ -5,6 +5,10 @@ API_DIR := apps/api
 start: 
 	overmind start
 
+activate:
+	source .venv/bin/activate
+
+.PHONY: setup
 setup:
 	cd $(WEB_DIR) && pnpm install
 	cd $(API_DIR) && python -m venv .venv
@@ -18,7 +22,7 @@ web:
 
 .PHONY: api
 api:
-	cd $(API_DIR) && uvicorn main:app --reload
+	cd $(API_DIR) && source .venv/bin/activate && uvicorn main:app --reload
 
 format:
 	cd $(API_DIR) && black . && isort .

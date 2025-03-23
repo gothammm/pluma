@@ -1,13 +1,3 @@
-import {
-  BarChartIcon,
-  CubeIcon,
-  FileTextIcon,
-  GearIcon,
-  LayersIcon,
-  SunIcon,
-  Cross1Icon,
-  HamburgerMenuIcon,
-} from "@radix-ui/react-icons";
 import { Button, IconButton, Separator, Text } from "@radix-ui/themes";
 import { ButterIcon } from "./illustrations/butter-icon";
 import { Link } from "@tanstack/react-router";
@@ -15,31 +5,32 @@ import { useThemeStore } from "../theme";
 import { SearchDialog } from "./search-dialog";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { CashRegister, ChartBar, Cube, Gear, Hamburger, Sun, Tag } from "@phosphor-icons/react";
 
 const NavigationItems = [
   {
     name: "Dashboard",
-    icon: <BarChartIcon />,
+    icon: <ChartBar />,
     href: "/dashboard",
   },
   {
     name: "Accounts",
-    icon: <CubeIcon />,
+    icon: <Cube />,
     href: "/accounts",
   },
   {
     name: "Transactions",
-    icon: <FileTextIcon />,
+    icon: <CashRegister />,
     href: "/transactions",
   },
   {
-    name: "Tags",
-    icon: <LayersIcon />,
+    name: "Categories",
+    icon: <Tag />,
     href: "/tags",
   },
   {
     name: "Settings",
-    icon: <GearIcon />,
+    icon: <Gear />,
     href: "/settings",
   },
 ];
@@ -51,13 +42,14 @@ export const Sidebar = () => {
   return (
     <div>
       {/* Mobile Menu Button */}
-      <div className="fixed bottom-4 p-2 right-4 z-50 md:hidden">
+      <div className="fixed bottom-4 p-4 right-4 z-50 md:hidden">
         <IconButton
           radius="full"
           variant="ghost"
+          className="p-4"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <HamburgerMenuIcon />
+          <Hamburger />
         </IconButton>
       </div>
 
@@ -109,13 +101,13 @@ export const Sidebar = () => {
                 className="p-2"
                 onClick={toggleDarkMode}
               >
-                <SunIcon />
+                <Sun />
               </Button>
             </div>
           </div>
-          <Separator size="4" my="4" />
+          <Separator size="4" />
           <SearchDialog />
-          <Separator size="4" my="4" />
+          <Separator size="4" />
           <div className="flex flex-col gap-2">
             {NavigationItems.map((item) => (
               <Link

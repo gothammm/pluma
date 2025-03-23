@@ -1,12 +1,16 @@
 from typing import Literal, Optional
 
 import sqlalchemy as sa
-from sqlmodel import Field
+from sqlmodel import Field, Relationship
+
+from models.transactions_model import Transaction
 
 from .base_model import BaseUUIDModel
 
 
 class Account(BaseUUIDModel, table=True):
+    __tablename__ = "accounts"
+
     name: str = Field(sa_column=sa.Column(sa.String, nullable=False))
     account_type: Literal["savings", "checking", "credit", "investment"] = Field(
         sa_column=sa.Column(sa.String, nullable=False)
@@ -28,3 +32,4 @@ class Account(BaseUUIDModel, table=True):
         ),
         default="active",
     )
+    transactions: list["Transaction"] = Relationship(back_populates="account")

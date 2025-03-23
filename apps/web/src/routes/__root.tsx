@@ -10,7 +10,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   const theme = useThemeContext();
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col flex-1 h-screen">
       <Outlet />
       <TanStackRouterDevtools position="bottom-left" />
     </div>
