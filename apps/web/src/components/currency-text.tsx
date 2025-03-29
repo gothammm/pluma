@@ -6,7 +6,7 @@ export const CurrencyText = ({
   className,
   currency,
   ...props
-}: { value: number, currency: string } & TextProps) => {
+}: { value: number; currency: string } & TextProps) => {
   const formattedAmount = useMemo(() => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",

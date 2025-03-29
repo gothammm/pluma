@@ -34,7 +34,7 @@ export const AccountForm = ({
   const queryClient = useQueryClient();
   const isEditMode = !!account;
 
-  const isOpen = useMemo(() => (open ?? false), [open]);
+  const isOpen = useMemo(() => open ?? false, [open]);
   const form = useForm<AccountFormData>({
     defaultValues: {
       name: account?.name ?? "",
@@ -62,7 +62,6 @@ export const AccountForm = ({
       },
     },
   });
-
 
   return (
     <Dialog.Root

@@ -13,6 +13,7 @@ import { CurrencyText } from "@/components/currency-text";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { DotsThreeVertical, Plus } from "@phosphor-icons/react";
+import { SidebarToggleButton } from "@/components/sidebar-toggle-button";
 
 const accountsQueryOptions = queryOptions<ListResponse<Account>>({
   queryKey: ["accounts"],
@@ -75,16 +76,21 @@ function AccountPageComponent() {
     setActiveAccount(undefined);
     setOpen(false);
     toast.success(
-      isUpdate ? "Account updated successfully" : "Account created successfully"
+      isUpdate
+        ? "Account updated successfully"
+        : "Account created successfully",
     );
   };
 
   return (
     <div className="flex flex-1 flex-col p-5 md:p-10 gap-10">
       <div className="flex justify-between">
-        <Text size="6" className="px-1" weight="bold">
-          Accounts
-        </Text>
+        <div className="flex gap-3 items-center">
+          <SidebarToggleButton />
+          <Text size="6" className="px-1" weight="bold">
+            Accounts
+          </Text>
+        </div>
         <AccountForm
           open={open}
           onOpen={() => setOpen(true)}
@@ -125,7 +131,7 @@ function AccountPageComponent() {
           <Card className="!flex flex-1 flex-col justify-center items-center gap-5">
             <EmptyAccountState className="h-40 w-40 fill-accent-track" />
             <div className="flex flex-col items-center gap-5">
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-5 md:gap-2 px-4 md:px-10">
                 <Text as="div" size="6" weight="medium">
                   No accounts have been set up yet. Let's get started on your
                   financial journey!
@@ -198,9 +204,7 @@ function AccountPageComponent() {
                     >
                       <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-2">
-                          <AccountTypeIcon
-                            type={account.account_type}
-                          />
+                          <AccountTypeIcon type={account.account_type} />
                           <Text size="5" weight="bold">
                             {account.name}
                           </Text>

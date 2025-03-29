@@ -1,8 +1,4 @@
-export const EmptyBills = ({
-  className
-}: {
-  className?: string
-}) => {
+export const EmptyBills = ({ className }: { className?: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,13 +8,7 @@ export const EmptyBills = ({
       fill="none"
       className={className}
     >
-      <ellipse
-        opacity="0.1"
-        cx="80"
-        cy="155.2"
-        rx="80"
-        ry="4.8"
-      />
+      <ellipse opacity="0.1" cx="80" cy="155.2" rx="80" ry="4.8" />
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"

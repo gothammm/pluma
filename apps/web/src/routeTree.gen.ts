@@ -10,241 +10,241 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
-import { Route as AboutImport } from './routes/about'
-import { Route as AuthImport } from './routes/_auth'
-import { Route as IndexImport } from './routes/index'
-import { Route as AuthTransactionsImport } from './routes/_auth.transactions'
-import { Route as AuthTagsImport } from './routes/_auth.tags'
-import { Route as AuthSettingsImport } from './routes/_auth.settings'
-import { Route as AuthDashboardImport } from './routes/_auth.dashboard'
-import { Route as AuthAccountsImport } from './routes/_auth.accounts'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as LoginImport } from "./routes/login";
+import { Route as AboutImport } from "./routes/about";
+import { Route as AuthImport } from "./routes/_auth";
+import { Route as IndexImport } from "./routes/index";
+import { Route as AuthTransactionsImport } from "./routes/_auth.transactions";
+import { Route as AuthSettingsImport } from "./routes/_auth.settings";
+import { Route as AuthDashboardImport } from "./routes/_auth.dashboard";
+import { Route as AuthCategoriesImport } from "./routes/_auth.categories";
+import { Route as AuthAccountsImport } from "./routes/_auth.accounts";
 
 // Create/Update Routes
 
 const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
+  id: "/about",
+  path: "/about",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthRoute = AuthImport.update({
-  id: '/_auth',
+  id: "/_auth",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthTransactionsRoute = AuthTransactionsImport.update({
-  id: '/transactions',
-  path: '/transactions',
+  id: "/transactions",
+  path: "/transactions",
   getParentRoute: () => AuthRoute,
-} as any)
-
-const AuthTagsRoute = AuthTagsImport.update({
-  id: '/tags',
-  path: '/tags',
-  getParentRoute: () => AuthRoute,
-} as any)
+} as any);
 
 const AuthSettingsRoute = AuthSettingsImport.update({
-  id: '/settings',
-  path: '/settings',
+  id: "/settings",
+  path: "/settings",
   getParentRoute: () => AuthRoute,
-} as any)
+} as any);
 
 const AuthDashboardRoute = AuthDashboardImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+  id: "/dashboard",
+  path: "/dashboard",
   getParentRoute: () => AuthRoute,
-} as any)
+} as any);
+
+const AuthCategoriesRoute = AuthCategoriesImport.update({
+  id: "/categories",
+  path: "/categories",
+  getParentRoute: () => AuthRoute,
+} as any);
 
 const AuthAccountsRoute = AuthAccountsImport.update({
-  id: '/accounts',
-  path: '/accounts',
+  id: "/accounts",
+  path: "/accounts",
   getParentRoute: () => AuthRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth/accounts': {
-      id: '/_auth/accounts'
-      path: '/accounts'
-      fullPath: '/accounts'
-      preLoaderRoute: typeof AuthAccountsImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/dashboard': {
-      id: '/_auth/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthDashboardImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/settings': {
-      id: '/_auth/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthSettingsImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/tags': {
-      id: '/_auth/tags'
-      path: '/tags'
-      fullPath: '/tags'
-      preLoaderRoute: typeof AuthTagsImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/transactions': {
-      id: '/_auth/transactions'
-      path: '/transactions'
-      fullPath: '/transactions'
-      preLoaderRoute: typeof AuthTransactionsImport
-      parentRoute: typeof AuthImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_auth": {
+      id: "/_auth";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/about": {
+      id: "/about";
+      path: "/about";
+      fullPath: "/about";
+      preLoaderRoute: typeof AboutImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_auth/accounts": {
+      id: "/_auth/accounts";
+      path: "/accounts";
+      fullPath: "/accounts";
+      preLoaderRoute: typeof AuthAccountsImport;
+      parentRoute: typeof AuthImport;
+    };
+    "/_auth/categories": {
+      id: "/_auth/categories";
+      path: "/categories";
+      fullPath: "/categories";
+      preLoaderRoute: typeof AuthCategoriesImport;
+      parentRoute: typeof AuthImport;
+    };
+    "/_auth/dashboard": {
+      id: "/_auth/dashboard";
+      path: "/dashboard";
+      fullPath: "/dashboard";
+      preLoaderRoute: typeof AuthDashboardImport;
+      parentRoute: typeof AuthImport;
+    };
+    "/_auth/settings": {
+      id: "/_auth/settings";
+      path: "/settings";
+      fullPath: "/settings";
+      preLoaderRoute: typeof AuthSettingsImport;
+      parentRoute: typeof AuthImport;
+    };
+    "/_auth/transactions": {
+      id: "/_auth/transactions";
+      path: "/transactions";
+      fullPath: "/transactions";
+      preLoaderRoute: typeof AuthTransactionsImport;
+      parentRoute: typeof AuthImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface AuthRouteChildren {
-  AuthAccountsRoute: typeof AuthAccountsRoute
-  AuthDashboardRoute: typeof AuthDashboardRoute
-  AuthSettingsRoute: typeof AuthSettingsRoute
-  AuthTagsRoute: typeof AuthTagsRoute
-  AuthTransactionsRoute: typeof AuthTransactionsRoute
+  AuthAccountsRoute: typeof AuthAccountsRoute;
+  AuthCategoriesRoute: typeof AuthCategoriesRoute;
+  AuthDashboardRoute: typeof AuthDashboardRoute;
+  AuthSettingsRoute: typeof AuthSettingsRoute;
+  AuthTransactionsRoute: typeof AuthTransactionsRoute;
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthAccountsRoute: AuthAccountsRoute,
+  AuthCategoriesRoute: AuthCategoriesRoute,
   AuthDashboardRoute: AuthDashboardRoute,
   AuthSettingsRoute: AuthSettingsRoute,
-  AuthTagsRoute: AuthTagsRoute,
   AuthTransactionsRoute: AuthTransactionsRoute,
-}
+};
 
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '': typeof AuthRouteWithChildren
-  '/about': typeof AboutRoute
-  '/login': typeof LoginRoute
-  '/accounts': typeof AuthAccountsRoute
-  '/dashboard': typeof AuthDashboardRoute
-  '/settings': typeof AuthSettingsRoute
-  '/tags': typeof AuthTagsRoute
-  '/transactions': typeof AuthTransactionsRoute
+  "/": typeof IndexRoute;
+  "": typeof AuthRouteWithChildren;
+  "/about": typeof AboutRoute;
+  "/login": typeof LoginRoute;
+  "/accounts": typeof AuthAccountsRoute;
+  "/categories": typeof AuthCategoriesRoute;
+  "/dashboard": typeof AuthDashboardRoute;
+  "/settings": typeof AuthSettingsRoute;
+  "/transactions": typeof AuthTransactionsRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '': typeof AuthRouteWithChildren
-  '/about': typeof AboutRoute
-  '/login': typeof LoginRoute
-  '/accounts': typeof AuthAccountsRoute
-  '/dashboard': typeof AuthDashboardRoute
-  '/settings': typeof AuthSettingsRoute
-  '/tags': typeof AuthTagsRoute
-  '/transactions': typeof AuthTransactionsRoute
+  "/": typeof IndexRoute;
+  "": typeof AuthRouteWithChildren;
+  "/about": typeof AboutRoute;
+  "/login": typeof LoginRoute;
+  "/accounts": typeof AuthAccountsRoute;
+  "/categories": typeof AuthCategoriesRoute;
+  "/dashboard": typeof AuthDashboardRoute;
+  "/settings": typeof AuthSettingsRoute;
+  "/transactions": typeof AuthTransactionsRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/_auth': typeof AuthRouteWithChildren
-  '/about': typeof AboutRoute
-  '/login': typeof LoginRoute
-  '/_auth/accounts': typeof AuthAccountsRoute
-  '/_auth/dashboard': typeof AuthDashboardRoute
-  '/_auth/settings': typeof AuthSettingsRoute
-  '/_auth/tags': typeof AuthTagsRoute
-  '/_auth/transactions': typeof AuthTransactionsRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/_auth": typeof AuthRouteWithChildren;
+  "/about": typeof AboutRoute;
+  "/login": typeof LoginRoute;
+  "/_auth/accounts": typeof AuthAccountsRoute;
+  "/_auth/categories": typeof AuthCategoriesRoute;
+  "/_auth/dashboard": typeof AuthDashboardRoute;
+  "/_auth/settings": typeof AuthSettingsRoute;
+  "/_auth/transactions": typeof AuthTransactionsRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | ''
-    | '/about'
-    | '/login'
-    | '/accounts'
-    | '/dashboard'
-    | '/settings'
-    | '/tags'
-    | '/transactions'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | ""
+    | "/about"
+    | "/login"
+    | "/accounts"
+    | "/categories"
+    | "/dashboard"
+    | "/settings"
+    | "/transactions";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | ''
-    | '/about'
-    | '/login'
-    | '/accounts'
-    | '/dashboard'
-    | '/settings'
-    | '/tags'
-    | '/transactions'
+    | "/"
+    | ""
+    | "/about"
+    | "/login"
+    | "/accounts"
+    | "/categories"
+    | "/dashboard"
+    | "/settings"
+    | "/transactions";
   id:
-    | '__root__'
-    | '/'
-    | '/_auth'
-    | '/about'
-    | '/login'
-    | '/_auth/accounts'
-    | '/_auth/dashboard'
-    | '/_auth/settings'
-    | '/_auth/tags'
-    | '/_auth/transactions'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/_auth"
+    | "/about"
+    | "/login"
+    | "/_auth/accounts"
+    | "/_auth/categories"
+    | "/_auth/dashboard"
+    | "/_auth/settings"
+    | "/_auth/transactions";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthRoute: typeof AuthRouteWithChildren
-  AboutRoute: typeof AboutRoute
-  LoginRoute: typeof LoginRoute
+  IndexRoute: typeof IndexRoute;
+  AuthRoute: typeof AuthRouteWithChildren;
+  AboutRoute: typeof AboutRoute;
+  LoginRoute: typeof LoginRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -252,11 +252,11 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -277,9 +277,9 @@ export const routeTree = rootRoute
       "filePath": "_auth.tsx",
       "children": [
         "/_auth/accounts",
+        "/_auth/categories",
         "/_auth/dashboard",
         "/_auth/settings",
-        "/_auth/tags",
         "/_auth/transactions"
       ]
     },
@@ -293,16 +293,16 @@ export const routeTree = rootRoute
       "filePath": "_auth.accounts.tsx",
       "parent": "/_auth"
     },
+    "/_auth/categories": {
+      "filePath": "_auth.categories.tsx",
+      "parent": "/_auth"
+    },
     "/_auth/dashboard": {
       "filePath": "_auth.dashboard.tsx",
       "parent": "/_auth"
     },
     "/_auth/settings": {
       "filePath": "_auth.settings.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/tags": {
-      "filePath": "_auth.tags.tsx",
       "parent": "/_auth"
     },
     "/_auth/transactions": {

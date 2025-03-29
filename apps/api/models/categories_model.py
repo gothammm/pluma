@@ -15,6 +15,11 @@ class Category(BaseUUIDModel, table=True):
 
     name: str = Field(sa_column=sa.Column(sa.String, nullable=False))
     parent_id: Optional[uuid.UUID] = Field(foreign_key="categories.id", nullable=True)
+    color: Optional[str] = Field(
+        sa_column=sa.Column(sa.String, nullable=True),
+        description="Hex color code for the category",
+    )
+    # Nested set model fields
     lft: int = Field(sa_column=sa.Column(sa.Integer, nullable=False))
     rgt: int = Field(sa_column=sa.Column(sa.Integer, nullable=False))
 

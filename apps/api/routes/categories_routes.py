@@ -1,17 +1,16 @@
-from loguru import logger
-
 import uuid
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
+from loguru import logger
 from pydantic import BaseModel, Field
 from sqlmodel import Session, select
 
-from models.out_model import OutModel
-from models.accounts_model import Account
 from database import get_session
+from models.accounts_model import Account
 from models.categories_model import Category
-
+from models.list_response import ListResponse
+from models.out_model import OutModel
 
 router = APIRouter(prefix="/categories", tags=["categories"])
 
@@ -19,6 +18,12 @@ router = APIRouter(prefix="/categories", tags=["categories"])
 class CategoryBase(BaseModel):
     name: str = Field(..., min_length=3, max_length=50, description="Category name")
     parent_id: Optional[uuid.UUID] = Field(None, description="Parent category ID")
+    color: Optional[str] = Field(
+        None,
+        description="Hex color code for the category",
+        example="#FF5733",
+    )
+
 
 class CategoryIn(CategoryBase):
     pass
@@ -26,7 +31,6 @@ class CategoryIn(CategoryBase):
 
 class CategoryOut(OutModel, CategoryBase):
     id: uuid.UUID
-
 
 
 @router.post("", response_model=CategoryOut)
@@ -44,30 +48,34 @@ def create_category(category: CategoryIn, db: Session = Depends(get_session)):
             ).one()
             if not parent:
                 logger.error(f"Parent category {category.parent_id} not found")
-                raise HTTPException(
-                    status_code=400, detail="Parent Category not found"
-                )
-                
+                raise HTTPException(status_code=400, detail="Parent Category not found")
+
             # Find last sibling of the parent category
             last_sibling = db.exec(
-                select(Category).where(Category.parent_id == parent.id).order_by(Category.rgt.desc())
+                select(Category)
+                .where(Category.parent_id == parent.id)
+                .order_by(Category.rgt.desc())
             ).first()
-            
+
             categories_to_update = None
             if last_sibling:
                 # Insert after last sibling
                 new_lft = last_sibling.rgt + 1
                 new_rgt = new_lft + 1
-                
+
                 # Make space for new node
-                categories_to_update = db.exec(select(Category).where(Category.rgt >= last_sibling.rgt)).all()
+                categories_to_update = db.exec(
+                    select(Category).where(Category.rgt >= last_sibling.rgt)
+                ).all()
             else:
                 # Insert as the first child of the parent
                 new_lft = parent.lft + 1
                 new_rgt = new_lft + 1
-                
+
                 # Make space for new node
-                categories_to_update = db.exec(select(Category).where(Category.lft >= parent.lft)).all()
+                categories_to_update = db.exec(
+                    select(Category).where(Category.lft >= parent.lft)
+                ).all()
             for cat in categories_to_update:
                 if cat.rgt >= new_lft:
                     cat.rgt += 2
@@ -77,9 +85,11 @@ def create_category(category: CategoryIn, db: Session = Depends(get_session)):
         else:
             # If no parent, add as a root node
             max_rgt_category = db.exec(
-                select(Category).where(Category.parent_id == None).order_by(Category.rgt.desc())
+                select(Category)
+                .where(Category.parent_id == None)
+                .order_by(Category.rgt.desc())
             ).first()
-            
+
             if max_rgt_category:
                 new_lft = max_rgt_category.rgt + 1
             else:
@@ -92,6 +102,7 @@ def create_category(category: CategoryIn, db: Session = Depends(get_session)):
             parent_id=category.parent_id,
             lft=new_lft,
             rgt=new_rgt,
+            color=category.color,
         )
         db.add(new_category)
         db.commit()
@@ -102,11 +113,11 @@ def create_category(category: CategoryIn, db: Session = Depends(get_session)):
     return new_category
 
 
-@router.get("", response_model=List[CategoryOut])
+@router.get("", response_model=ListResponse[CategoryOut])
 def list_categories(db: Session = Depends(get_session)):
     """Retrieve all categories in a nested set order."""
     categories = db.exec(select(Category).order_by(Category.lft)).all()
-    return categories
+    return ListResponse[CategoryOut](results=CategoryOut.from_orm_list(categories))
 
 
 @router.put("/{category_id}", response_model=CategoryOut)
@@ -116,7 +127,6 @@ def update_category(
     db: Session = Depends(get_session),
 ):
     """Update an existing category, including renaming or reassigning parent."""
-
     category = db.exec(select(Category).where(Category.id == category_id)).first()
 
     if not category:
@@ -126,6 +136,9 @@ def update_category(
     try:
         # Update category name
         category.name = category_data.name
+        if category_data.color is not None:
+            # Update color only if it's provided
+            category.color = category_data.color
 
         db.commit()  # Explicit commit without using db.begin()
         db.refresh(category)

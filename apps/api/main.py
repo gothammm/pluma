@@ -1,6 +1,6 @@
 import sys
-from typing import Union
 import uuid
+from typing import Union
 
 from fastapi import FastAPI, Request, status
 from fastapi.concurrency import asynccontextmanager
@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 from loguru import logger
 from pydantic import ValidationError
 
-from routes import accounts_router, transaction_router, categories_router
+from routes import accounts_router, categories_router, transaction_router
 
 app = FastAPI()
 

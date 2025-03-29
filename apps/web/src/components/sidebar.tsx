@@ -5,7 +5,16 @@ import { useThemeStore } from "../theme";
 import { SearchDialog } from "./search-dialog";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { CashRegister, ChartBar, Cube, Gear, Hamburger, Sun, Tag } from "@phosphor-icons/react";
+import {
+  CashRegister,
+  ChartBar,
+  Cube,
+  Gear,
+  List,
+  Sun,
+  Tag,
+} from "@phosphor-icons/react";
+import { useSidebarStore } from "@/store";
 
 const NavigationItems = [
   {
@@ -26,7 +35,7 @@ const NavigationItems = [
   {
     name: "Categories",
     icon: <Tag />,
-    href: "/tags",
+    href: "/categories",
   },
   {
     name: "Settings",
@@ -36,33 +45,21 @@ const NavigationItems = [
 ];
 
 export const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { open, setOpen } = useSidebarStore();
   const { toggleDarkMode } = useThemeStore();
 
   return (
     <div>
-      {/* Mobile Menu Button */}
-      <div className="fixed bottom-4 p-4 right-4 z-50 md:hidden">
-        <IconButton
-          radius="full"
-          variant="ghost"
-          className="p-4"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <Hamburger />
-        </IconButton>
-      </div>
-
       {/* Overlay for mobile */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="fixed inset-0 bg-[var(--color-overlay)] z-40 md:hidden"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setOpen(false)}
           />
         )}
       </AnimatePresence>
@@ -76,7 +73,7 @@ export const Sidebar = () => {
           transition-transform duration-300
           z-50 md:z-0
           ${
-            isOpen
+            open
               ? "max-w-80 w-full translate-x-0"
               : "w-64 border-gray-a5 border-r -translate-x-full md:translate-x-0"
           }
@@ -84,7 +81,7 @@ export const Sidebar = () => {
       >
         <div
           className={`flex flex-1 flex-col gap-4 bg-[var(--color-background)] p-4 ${
-            isOpen ? "shadow-border rounded-default" : ""
+            open ? "shadow-border rounded-default" : ""
           }`}
         >
           <div className="flex flex-row justify-between items-center">
@@ -115,7 +112,7 @@ export const Sidebar = () => {
                 activeProps={{ className: "bg-accent-3" }}
                 to={item.href}
                 className="flex flex-row items-center gap-2 p-2 hover:bg-accent-3 rounded-lg hover:cursor-pointer hover:shadow-classic"
-                onClick={() => setIsOpen(false)}
+                onClick={() => setOpen(false)}
               >
                 {item.icon}
                 <Text size="2" weight="medium">

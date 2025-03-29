@@ -8,21 +8,28 @@ import React from "react";
 import { EmptyBills } from "@/components/illustrations/empty-bills";
 
 export const TransactionsList = () => {
-  const groupedByDate = [].reduce((acc, transaction: Transaction) => {
-    const date = transaction.date;
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date] = [...acc[date], transaction];
-    return acc;
-  }, {} as Record<string, Transaction[]>);
+  const groupedByDate = [].reduce(
+    (acc, transaction: Transaction) => {
+      const date = transaction.date;
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date] = [...acc[date], transaction];
+      return acc;
+    },
+    {} as Record<string, Transaction[]>,
+  );
 
   const dateKeys = Object.keys(groupedByDate).sort((a, b) => {
     return DateTime.fromISO(b).toMillis() - DateTime.fromISO(a).toMillis();
   });
   return (
     <div className="flex flex-1 flex-col gap-3">
-      <Table.Root size="1" variant="surface" className="w-full h-full [&_.rt-TableRootTable]:!h-full">
+      <Table.Root
+        size="1"
+        variant="surface"
+        className="w-full h-full [&_.rt-TableRootTable]:!h-full"
+      >
         <Table.Header>
           <Table.Row className="leading-5">
             <Table.ColumnHeaderCell width={"3%"} justify={"center"}>
@@ -45,13 +52,8 @@ export const TransactionsList = () => {
         {dateKeys.length <= 0 ? (
           <Table.Body>
             <Table.Row>
-              <Table.Cell
-                colSpan={5}
-              >
-                <Card
-                  variant="ghost"
-                  className="!flex h-full flex-col gap-5"
-                >
+              <Table.Cell colSpan={5}>
+                <Card variant="ghost" className="!flex h-full flex-col gap-5">
                   <div className="flex flex-col flex-1 items-center justify-center gap-5 p-10">
                     <div className="flex flex-col items-center gap-2">
                       <EmptyBills className="fill-accent-track h-40 w-40" />
@@ -59,9 +61,10 @@ export const TransactionsList = () => {
                         No Transactions Found
                       </Text>
                       <Text as="div" size="3" weight="light" color="gray">
-                        Your transactions list is currently empty. Add your first account 
-                        and start tracking your financial activity. Click the "Add Transaction" 
-                        button below to begin managing your finances efficiently.
+                        Your transactions list is currently empty. Add your
+                        first account and start tracking your financial
+                        activity. Click the "Add Transaction" button below to
+                        begin managing your finances efficiently.
                       </Text>
                     </div>
                     <Button variant="classic">

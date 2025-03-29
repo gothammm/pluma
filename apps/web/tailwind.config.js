@@ -10,17 +10,17 @@ export default {
         "overlay-sm": "var(--shadow-4)",
         "overlay-lg": "var(--shadow-5)",
         dialog: "var(--shadow-6)",
-        border: "inset 0 0 0 1px var(--gray-a7)"
+        border: "inset 0 0 0 1px var(--gray-a7)",
       },
       borderRadius: {
-        default: "max(var(--radius-2), var(--radius-full))"
+        default: "max(var(--radius-2), var(--radius-full))",
       },
       backgroundColor: {
-        "light": "hsl(48deg 25% 92.16%)",
+        light: "hsl(48deg 25% 92.16%)",
         "text-field": "var(--color-surface)",
         "panel-translucent": "var(--color-panel-translucent)",
-        "panel-solid": "var(--color-panel-solid)"
-      }
+        "panel-solid": "var(--color-panel-solid)",
+      },
     },
   },
   plugins: [],

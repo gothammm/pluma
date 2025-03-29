@@ -30,6 +30,7 @@ export const fetchData =
       throw new Error(errorBody.message || `HTTP error! Status: ${res.status}`);
     }
 
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
     return res.json();
   };
 
@@ -62,7 +63,7 @@ export const mutateData =
   <TData, TVariables>(
     url: string,
     method = "POST",
-    options: RequestInit = {}
+    options: RequestInit = {},
   ) =>
   async (variables: TVariables): Promise<TData> => {
     const { params, ...body } = variables as TVariables & {

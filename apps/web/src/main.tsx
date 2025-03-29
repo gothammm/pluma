@@ -26,6 +26,6 @@ if (!rootElement.innerHTML) {
   root.render(
     <App>
       <RouterProvider router={router} />
-    </App>
+    </App>,
   );
 }

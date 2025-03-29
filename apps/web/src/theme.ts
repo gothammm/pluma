@@ -16,6 +16,6 @@ export const useThemeStore = create<Theme>()(
     }),
     {
       name: "theme-storage",
-    }
-  )
+    },
+  ),
 );

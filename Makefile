@@ -26,3 +26,4 @@ api:
 
 format:
 	cd $(API_DIR) && black . && isort .
+	cd $(WEB_DIR) && pnpm format
