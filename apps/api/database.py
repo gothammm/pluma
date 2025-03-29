@@ -1,6 +1,6 @@
 from sqlmodel import Session, create_engine
 
-DATABASE_URL = "sqlite:///./butter-finance.db"  # Use PostgreSQL or MySQL if needed
+DATABASE_URL = "sqlite:///./pluma-finance.db"  # Use PostgreSQL or MySQL if needed
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 

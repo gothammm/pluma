@@ -5,11 +5,9 @@ API_DIR := apps/api
 start: 
 	overmind start
 
-activate:
-	source .venv/bin/activate
-
 .PHONY: setup
 setup:
+	mise install
 	cd $(WEB_DIR) && pnpm install
 	cd $(API_DIR) && python -m venv .venv
 	cd $(API_DIR) && source .venv/bin/activate
@@ -27,3 +25,6 @@ api:
 format:
 	cd $(API_DIR) && black . && isort .
 	cd $(WEB_DIR) && pnpm format
+
+migrate:
+	cd $(API_DIR) && source .venv/bin/activate && alembic upgrade head
