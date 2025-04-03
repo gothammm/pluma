@@ -61,6 +61,7 @@
   --color-accent-indicator: var(--bronze-indicator);
   --color-accent-track: var(--bronze-track);
   --color-gray-a5: var(--gray-a5);
+  --color-background: var(--color-background);
 }
 
 :where([data-sonner-toast][data-styled="true"]) {

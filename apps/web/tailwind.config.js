@@ -21,6 +21,31 @@ export default {
         "panel-translucent": "var(--color-panel-translucent)",
         "panel-solid": "var(--color-panel-solid)",
       },
+      keyframes: {
+        wave: {
+          "0%": { transform: "scale(1.5) translateY(0)" },
+          "50%": { transform: "scale(1.5) translateY(-10px)" },
+          "100%": { transform: "scale(1.5) translateY(0)" },
+        },
+        equalizer1: {
+          "0%, 100%": { transform: "scaleY(0.9)" },
+          "50%": { transform: "scaleY(1.3)" },
+        },
+        equalizer2: {
+          "0%, 100%": { transform: "scaleY(1.2)" },
+          "50%": { transform: "scaleY(0.8)" },
+        },
+        equalizer3: {
+          "0%, 100%": { transform: "scaleY(1.1)" },
+          "50%": { transform: "scaleY(0.95)" },
+        },
+      },
+      animation: {
+        wave: "wave 4s ease-in-out infinite",
+        equalizer1: "equalizer1 2.5s ease-in-out infinite",
+        equalizer2: "equalizer2 3s ease-in-out infinite",
+        equalizer3: "equalizer3 3.5s ease-in-out infinite",
+      },
     },
   },
   plugins: [],

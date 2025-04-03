@@ -1,8 +1,7 @@
 import { Button, IconButton, Separator, Text } from "@radix-ui/themes";
-import { ButterIcon } from "./illustrations/butter-icon";
 import { Link } from "@tanstack/react-router";
-import { useThemeStore } from "../theme";
-import { SearchDialog } from "./search-dialog";
+import { useThemeStore } from "@/theme";
+import { SearchDialog } from "@/components/search-dialog";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -15,6 +14,7 @@ import {
   Tag,
 } from "@phosphor-icons/react";
 import { useSidebarStore } from "@/store";
+import { Logo } from "@/components/logo";
 
 const NavigationItems = [
   {
@@ -37,11 +37,11 @@ const NavigationItems = [
     icon: <Tag />,
     href: "/categories",
   },
-  {
-    name: "Settings",
-    icon: <Gear />,
-    href: "/settings",
-  },
+  // {
+  //   name: "Settings",
+  //   icon: <Gear />,
+  //   href: "/settings",
+  // },
 ];
 
 export const Sidebar = () => {
@@ -80,46 +80,58 @@ export const Sidebar = () => {
         `}
       >
         <div
-          className={`flex flex-1 flex-col gap-4 bg-[var(--color-background)] p-4 ${
+          className={`flex flex-1 flex-col gap-4 justify-between bg-background p-4 ${
             open ? "shadow-border rounded-default" : ""
           }`}
         >
-          <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row gap-2 items-center">
-              <ButterIcon />
-              <Text className="lowercase" size="4" weight="medium">
-                Butter.finance
-              </Text>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row gap-2 items-center">
+                <Logo />
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  color="gray"
+                  variant="ghost"
+                  className="p-2"
+                  onClick={toggleDarkMode}
+                >
+                  <Sun />
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-2">
-              <Button
-                color="gray"
-                variant="ghost"
-                className="p-2"
-                onClick={toggleDarkMode}
-              >
-                <Sun />
-              </Button>
+            <Separator size="4" />
+            <SearchDialog />
+            <Separator size="4" />
+            <div className="flex flex-col gap-2">
+              {NavigationItems.map((item) => (
+                <Link
+                  key={item.name}
+                  activeProps={{ className: "bg-accent-3" }}
+                  to={item.href}
+                  className="flex flex-row items-center gap-2 p-2 hover:bg-accent-3 rounded-lg hover:cursor-pointer hover:shadow-classic"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.icon}
+                  <Text size="2" weight="medium">
+                    {item.name}
+                  </Text>
+                </Link>
+              ))}
             </div>
           </div>
-          <Separator size="4" />
-          <SearchDialog />
-          <Separator size="4" />
           <div className="flex flex-col gap-2">
-            {NavigationItems.map((item) => (
-              <Link
-                key={item.name}
-                activeProps={{ className: "bg-accent-3" }}
-                to={item.href}
-                className="flex flex-row items-center gap-2 p-2 hover:bg-accent-3 rounded-lg hover:cursor-pointer hover:shadow-classic"
-                onClick={() => setOpen(false)}
-              >
-                {item.icon}
-                <Text size="2" weight="medium">
-                  {item.name}
-                </Text>
-              </Link>
-            ))}
+            <Link
+              activeProps={{ className: "bg-accent-3" }}
+              to={"/settings"}
+              className="flex flex-row items-center gap-2 p-2 hover:bg-accent-3 rounded-lg hover:cursor-pointer hover:shadow-classic"
+              onClick={() => setOpen(false)}
+            >
+              <Gear />
+              <Text size="2" weight="medium">
+                Settings
+              </Text>
+            </Link>
           </div>
         </div>
       </div>
